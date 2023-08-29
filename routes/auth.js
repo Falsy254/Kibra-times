@@ -69,7 +69,7 @@ router.post("signin",[check("email","please enter a valid email").isEmail(),
     const {email,password}=req.body
     const errors=validationResult(req)
     if (!errors.isEmpty()){
-      return res.status(408).json({errors.array()})
+      return res.status(408).json({errors:errors.array()})
     }
     const user=await User.findOne({email})
     if(!user){
@@ -97,10 +97,10 @@ const token=await jwt.sign(
   },
   process.env.JWT_SIGN,
   {expiresIn:"3rd"}
+  )
   console.log(token)
   const {password:userpassword,...othres} =user.$getPopulatedDocs;
   res.status(200).json({...othres, token})
-)
   } catch (error) {
     res.status(400).json(error)
   }
