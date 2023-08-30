@@ -2,9 +2,11 @@ const dotenv=require("dotenv")
 const express = require("express");
 const postRoutes=require("./routes/post")
 const authRoutes=require("./routes/auth")
+const cors=require("cors")
 const app = express();
 dotenv.config();
 const PORT =process.env.PORT || 5001;
+app.use({cors})
 const mongoose = require("mongoose");
 app.use(express.json())
 app.use("/api/posts",postRoutes)
