@@ -69,12 +69,12 @@ router.post("signin",[check("email","please enter a valid email").isEmail(),
     const {email,password}=req.body
     const errors=validationResult(req)
     if (!errors.isEmpty()){
-      return res.status(408).json({errors:errors.array()})
+      return res.status(408).json({error:errors.array()})
     }
     const user=await User.findOne({email})
     if(!user){
       return res.status(400).json({
-        "error":[
+        error:[
           {
             "msg": "Invald Credentials"
           }
@@ -84,9 +84,9 @@ router.post("signin",[check("email","please enter a valid email").isEmail(),
 const checkpassword=await bcrypt.compare(password,user.password)
 if(!checkpassword){
   return res.status(400).json({
-    "error":[
+    error:[
       {
-        "msg":"Wrong credentials"
+        "msg":"Invalid credentials"
       }
     ]
   })
