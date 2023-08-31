@@ -63,7 +63,7 @@ router.post(
     }
   }
 );
-router.post("signin",[check("email","please enter a valid email").isEmail(),
+router.post("/signin",[check("email","please enter a valid email").isEmail(),
 ], async (req,res)=>{
   try {
     const {email,password}=req.body
